@@ -1,31 +1,35 @@
 local Player = game.Players.LocalPlayer
 local Mouse = Player:GetMouse()
-local UserInputService = game:GetService('UserInputService')
- 
+local UserInputService = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+
 local HoldingControl = false
- 
-Mouse.Button1Down:connect(function()
-if HoldingControl then
-Player.Character:MoveTo(Mouse.Hit.p)
-end
+
+-- Notification
+StarterGui:SetCore("SendNotification", {
+    Title = "Teleport Script",
+    Text = "Enjoy Flazeds TP",
+    Duration = 8
+})
+
+Mouse.Button1Down:Connect(function()
+    if HoldingControl then
+        Player.Character:MoveTo(Mouse.Hit.p)
+    end
 end)
- 
-UserInputService.InputBegan:connect(function(Input, Processed)
-if Input.UserInputType == Enum.UserInputType.Keyboard then
-if Input.KeyCode == Enum.KeyCode.LeftControl then
-HoldingControl = true
-elseif Input.KeyCode == Enum.KeyCode.RightControl then
-HoldingControl = true
-end
-end
+
+UserInputService.InputBegan:Connect(function(Input, Processed)
+    if Input.UserInputType == Enum.UserInputType.Keyboard then
+        if Input.KeyCode == Enum.KeyCode.LeftControl or Input.KeyCode == Enum.KeyCode.RightControl then
+            HoldingControl = true
+        end
+    end
 end)
- 
-UserInputService.InputEnded:connect(function(Input, Processed)
-if Input.UserInputType == Enum.UserInputType.Keyboard then
-if Input.KeyCode == Enum.KeyCode.LeftControl then
-HoldingControl = false
-elseif Input.KeyCode == Enum.KeyCode.RightControl then
-HoldingControl = false
-end
-end
+
+UserInputService.InputEnded:Connect(function(Input, Processed)
+    if Input.UserInputType == Enum.UserInputType.Keyboard then
+        if Input.KeyCode == Enum.KeyCode.LeftControl or Input.KeyCode == Enum.KeyCode.RightControl then
+            HoldingControl = false
+        end
+    end
 end)
